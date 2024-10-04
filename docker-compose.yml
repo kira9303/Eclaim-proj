@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  celery_gpt_service:
+    build:
+      context: ./celery_gpt_service
+    env_file:
+      - ./celery_gpt_service/.env
+    volumes:
+      - ./celery_gpt_service:/app
+    restart: always
+    depends_on:
+      - redis
+
+  celery_voice:
+    build:
+      context: ./celery_voice
+    env_file:
+      - ./celery_voice/.env
+    volumes:
+      - ./celery_voice:/app
+    restart: always
+    depends_on:
+      - redis
+
+  fastapi_service:
+    build:
+      context: ./fastapi_service
+    env_file:
+      - ./fastapi_service/.env
+    volumes:
+      - ./fastapi_service:/app
+    ports:
+      - "8000:8000"
+    restart: always
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    restart: always

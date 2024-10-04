@@ -1,0 +1,7 @@
+<Response>
+    <Say voice="alice">Hello! Please stay on the line, let me connect you through.</Say>
+    <Connect>
+        <Stream url="wss://8a07-106-51-85-235.ngrok-free.app/ws"/>
+    </Connect>
+</Response>
+
